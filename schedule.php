@@ -379,6 +379,8 @@ function scheduleApiShortcode($atts)
                     if (!empty($val)) {
                         $date = (date('Y-m-d', getSmartDate($i)));
                         $d = explode('-', $day[$j]);
+                        $dp = explode(' ', trim($d[1]));
+                       
                         $is_free = true;
                         if ($d[0][0] == '*') {
                             $is_free = false;
@@ -391,7 +393,7 @@ function scheduleApiShortcode($atts)
                                 'date' => $date,
                                 'time' => $d[0],
                                 'is_free' => $is_free,
-                                'price' => $d[1],
+                                'price' => $dp[0],
                                 'your_slot_id' => $atts['id'],
                             ];
                     }
