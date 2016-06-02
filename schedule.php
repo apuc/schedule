@@ -30,8 +30,9 @@ add_action('wp_footer', 'add_scripts_s'); // приклеем ф-ю на доб�
 function add_scripts_s()
 { // добавление скриптов
     if (is_admin()) return false; // если мы в админке - ничего не делаем
-
-    wp_enqueue_script('s-script', PL_URL . '/js/script.js', array('jquery'), '', false);
+    wp_enqueue_style('s-bootstrap', PL_URL . '/css/bootstrap/bootstrap.min.css', array(), '1');
+    wp_enqueue_script('s-bootstrap', PL_URL . 'js/bootstrap.min.js', array('jquery'), '', false);
+    wp_enqueue_script('s-script', PL_URL . 'js/script.js', array('s-bootstrap'), '', false);
     wp_localize_script('s-script', 'myajax',
         array(
             'url' => admin_url('admin-ajax.php')
@@ -348,10 +349,147 @@ function set_html_content_type()
 function getSmartDate($day)
 {
     $numDay = date('w');
-    if($numDay == 0){
+    if ($numDay == 0) {
         $numDay = 7;
     }
     $dayInSec = 60 * 60 * 24;
     $date = $numDay - $day;
     return time() - ($date * $dayInSec);
 }
+
+/**
+ * Передача расписания API
+ */
+function scheduleApiShortcode($atts)
+{
+    $atts = shortcode_atts(
+        array(
+            'id' => 1,
+        ), $atts, 'schedule-api');
+
+    $schedule = get_post_meta($atts['id'], 'schedule');
+    $schedule = json_decode(stripslashes($schedule[0]), true);
+    $i = 1;
+    $arr = [];
+    foreach ($schedule as $item) {
+        foreach ($item as $day) {
+            if (!empty($day[0])) {
+                $j = 0;
+                foreach ($day as $val) {
+                    if (!empty($val)) {
+                        $date = (date('Y-m-d', getSmartDate($i)));
+                        $d = explode('-', $day[$j]);
+                        $is_free = true;
+                        if ($d[0][0] == '*') {
+                            $is_free = false;
+                        }
+                        if ($d[0][0] == '*') {
+                            $d[0] = substr($d[0], 1);
+                        }
+                        $arr[] =
+                            [
+                                'date' => $date,
+                                'time' => $d[0],
+                                'is_free' => $is_free,
+                                'price' => $d[1],
+                                'your_slot_id' => $atts['id'],
+                            ];
+                    }
+                    $j++;
+                }
+            }
+            $i++;
+        }
+    }
+    echo(json_encode($arr, JSON_UNESCAPED_UNICODE));
+}
+
+add_shortcode('schedule-api', 'scheduleApiShortcode');
+
+/**
+ * @param $atts
+ * Бронирование через API
+ */
+
+function getBook($atts)
+{
+    $atts = shortcode_atts(
+        array(
+            'date' => '2016-05-31',
+            'time' => '15:30',
+            'price' => '4500',
+            'id' => 7
+        ), $atts, 'schedule-get');
+
+    $schedule = get_post_meta($atts['id'], 'schedule');
+    $schedule = json_decode(stripslashes($schedule[0]), true);
+    //s_prn($schedule);
+    $i = 1;
+    $arr = [];
+    $week = 1;
+    $flag = 0;
+    $scheduleNew = [];
+    foreach ($schedule as $item) {
+        $dayCount = 1;
+        foreach ($item as $k => $day) {
+            if (!empty($day[0])) {
+                $j = 0;
+                foreach ($day as $val) {
+                    if (!empty($val)) {
+
+                        $date = (date('Y-m-d', getSmartDate($i)));
+
+                        $d = explode('-', $day[$j]);
+                        /*s_prn($date . ' - ' . $atts['date']);
+                        s_prn( $d[0][0] .' - ' . '*');
+                        s_prn(trim($d[0]) . ' - ' . $atts['time']);*/
+                        if ($date == $atts['date'] and $d[0][0] != '*' and  trim($d[0]) == $atts['time']) {
+                            $val = '*' . $val;
+                            $flag = 1;
+                        }
+
+                        $is_free = true;
+                        if ($d[0][0] == '*') {
+                            $is_free = false;
+                        }
+                        if ($d[0][0] == '*') {
+                            $d[0] = substr($d[0], 1);
+                        }
+
+                        $arr[] =
+                            [
+                                'date' => $date,
+                                'time' => $d[0],
+                                'is_free' => $is_free,
+                                'price' => $d[1],
+                                'your_slot_id' => strtotime($date . ' ' . $d[0]),
+                            ];
+
+                        $scheduleNew[$week][$k][] = $val;
+                    }
+                    $j++;
+                }
+            }
+            else {
+                $scheduleNew[$week][$k] = [0=>''];
+            }
+            $i++;
+            $dayCount++;
+        }
+        $week++;
+    }
+    $scheduleNew = json_encode($scheduleNew,JSON_UNESCAPED_UNICODE );
+    //s_prn($scheduleNew);
+    $f = add_post_meta($atts['id'], 'schedule', $scheduleNew, true);
+    if (!$f) {
+        $f = update_post_meta($atts['id'], 'schedule', $scheduleNew);
+    }
+    if($flag){
+        echo json_encode(['success'=>true],JSON_UNESCAPED_UNICODE );
+    }
+    else{
+        echo json_encode(['success'=>false, "message"=>'Занят'],JSON_UNESCAPED_UNICODE );
+    }
+}
+
+add_shortcode('schedule-get', 'getBook');

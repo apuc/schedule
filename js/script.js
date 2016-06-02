@@ -68,6 +68,7 @@ jQuery(document).ready(function ($) {
     });
 
     $('.schedule-front-week-day--item').on('click', function(){
+
         $('.schedule-front-week-day--item').each(function(){
             $(this).removeClass('active-item');
         });
