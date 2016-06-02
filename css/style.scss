@@ -1,0 +1,114 @@
+%clearfix {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  &:before, &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.quest-item {
+  padding: 20px;
+  font-size: 17px;
+  margin-top: 30px;
+}
+
+.schedule-wrap {
+  float: left;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  &-week {
+    @extend %clearfix;
+    float: left;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    &-day {
+      float: left;
+      position: relative;
+      width: 13%;
+      border: 1px solid black;
+      margin-left: 3px;
+      border-radius: 5px;
+      text-align: center;
+      padding-top: 5px;
+      &--title {
+        height: 30px;
+        text-transform: uppercase;
+        font-weight: bold;
+        float: left;
+        width:100%;
+      }
+      &--item {
+        float: left;
+        width:100%;
+        margin-bottom: 5px;
+        .icon {
+          margin: 0 3px;
+          &-edit {
+            color: #0077ff;
+          }
+          &-del {
+            color: #f00;
+          }
+          &-unlock {
+            color: #00AA00;
+          }
+        }
+      }
+      &-time {
+        float: left;
+        display: block;
+        width: 90%;
+        height: 10px;
+        border: 1px solid darkred;
+        margin: 10px 0 10px 0;
+      }
+    }
+  }
+}
+
+.schedule-front {
+  display: block;
+  float: left;
+  width: 100%;
+  &-week {
+    display: block;
+    float: left;
+    width: 100%;
+    &-day {
+      display: block;
+      float: left;
+      width: 95%;
+      height: 50px;
+      background-color: #9ebaa0;
+      margin: 3px;
+      padding: 5px;
+      box-sizing: border-box;
+      &--title {
+        float: left;
+        width: 90px;
+      }
+      &--item {
+        float: left;
+        margin: 0 15px;
+        width: 75px;
+        height: 40px;
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+.lock {
+  background-color: #9ea476;
+}
+
+.empty-item {
+  width: 0px;
+}
