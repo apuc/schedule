@@ -186,6 +186,12 @@ function getDay($number)
 
 function getDayRu($number)
 {
+    if ($number > 7) {
+        $number = $number - 7;
+    }
+    if ($number == 0){
+        $number = 7;
+    }
     switch ($number) {
         case 1:
             return "ПН";
@@ -203,6 +209,8 @@ function getDayRu($number)
             return "ВС";
     }
 }
+
+
 
 function getEmptySchedule()
 {
@@ -446,7 +454,7 @@ function getBook($atts)
                         /*s_prn($date . ' - ' . $atts['date']);
                         s_prn( $d[0][0] .' - ' . '*');
                         s_prn(trim($d[0]) . ' - ' . $atts['time']);*/
-                        if ($date == $atts['date'] and $d[0][0] != '*' and  trim($d[0]) == $atts['time']) {
+                        if ($date == $atts['date'] and $d[0][0] != '*' and trim($d[0]) == $atts['time']) {
                             $val = '*' . $val;
                             $flag = 1;
                         }
@@ -472,36 +480,34 @@ function getBook($atts)
                     }
                     $j++;
                 }
-            }
-            else {
-                $scheduleNew[$week][$k] = [0=>''];
+            } else {
+                $scheduleNew[$week][$k] = [0 => ''];
             }
             $i++;
             $dayCount++;
         }
         $week++;
     }
-    $scheduleNew = json_encode($scheduleNew,JSON_UNESCAPED_UNICODE );
+    $scheduleNew = json_encode($scheduleNew, JSON_UNESCAPED_UNICODE);
     //s_prn($scheduleNew);
     $f = add_post_meta($atts['id'], 'schedule', $scheduleNew, true);
     if (!$f) {
         $f = update_post_meta($atts['id'], 'schedule', $scheduleNew);
     }
-    if($flag){
-        echo json_encode(['success'=>true],JSON_UNESCAPED_UNICODE );
-    }
-    else{
-        echo json_encode(['success'=>false, "message"=>'Занят'],JSON_UNESCAPED_UNICODE );
+    if ($flag) {
+        echo json_encode(['success' => true], JSON_UNESCAPED_UNICODE);
+    } else {
+        echo json_encode(['success' => false, "message" => 'Занят'], JSON_UNESCAPED_UNICODE);
     }
 }
 
 add_shortcode('schedule-get', 'getBook');
 
-function getMonth($monthNumber = false) {
-    if($monthNumber){
+function getMonth($monthNumber = false)
+{
+    if ($monthNumber) {
         $m = $monthNumber;
-    }
-    else {
+    } else {
         $m = date('m');
     }
     switch ($m) {
@@ -530,4 +536,13 @@ function getMonth($monthNumber = false) {
         case '12':
             return "Декабря";
     }
+}
+
+function getScheduleToDay($id, $day, $week)
+{
+    $schedule = get_post_meta($id, 'schedule');
+    $schedule = json_decode(stripslashes($schedule[0]), true);
+    $day = ($day == 0) ? 7 : $day;
+    $day = getDay($day);
+    s_prn($schedule[$week][$day]);
 }

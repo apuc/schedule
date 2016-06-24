@@ -15,19 +15,25 @@
 
 <div class="schedule-front" data-q="<?= $qId ?>">
     <div class="schedule-front-week" data-week="1">
-        <?php $i = 1; ?>
+<?php getScheduleToDay(get_the_ID(), date('w'),1) ?>
+        <?php $i = date('w'); ?>
         <?php foreach ($schedule[1] as $k => $day): ?>
             <div class="schedule-front-week-day" data-day="<?= $k ?>">
-                <div class="schedule-front-week-day--title <?= (getDayRu($i) == "СБ" or getDayRu($i) == "ВС") ? 'title-holiday' : '' ?>">
-                    <?= getDayRu($i) ?> <br> <?= date('j', getSmartDate($i)) ?> <?= getMonth(date('m', getSmartDate($i))) ?>
+                <div
+                    class="schedule-front-week-day--title <?= (getDayRu($i) == "СБ" or getDayRu($i) == "ВС") ? 'title-holiday' : '' ?>">
+                    <?= getDayRu($i) ?>
+                    <br> <?= date('j', getSmartDate($i)) ?> <?= getMonth(date('m', getSmartDate($i))) ?>
                 </div>
                 <?php foreach ($day as $d): ?>
                     <?php if (!empty($d)): ?>
-                        <div class="schedule-front-week-day--item <?= ($d[0] == '*') ? 'lock' : '' ?>" data-date="<?= date('d-m-Y', getSmartDate($i)) ?>">
+                        <div class="schedule-front-week-day--item <?= ($d[0] == '*') ? 'lock' : '' ?>"
+                             data-date="<?= date('d-m-Y', getSmartDate($i)) ?>">
                             <span style="display: none"><?= $d ?></span>
                             <?php $newD = explode('-', $d); ?>
                             <div class="schedule-front-week-day--item-time"><?= $newD[0] ?></div>
-                            <div class="schedule-front-week-day--item-price"><?= $newD[1] ?> <i class="fa fa-rub" aria-hidden="true"></i></div>
+                            <div class="schedule-front-week-day--item-price"><?= $newD[1] ?> <i class="fa fa-rub"
+                                                                                                aria-hidden="true"></i>
+                            </div>
                         </div>
                     <?php endif ?>
                 <?php endforeach; ?>
@@ -41,16 +47,21 @@
         <?php $i = 1; ?>
         <?php foreach ($schedule[2] as $k => $day): ?>
             <div class="schedule-front-week-day" data-day="<?= $k ?>">
-                <div class="schedule-front-week-day--title <?= (getDayRu($i) == "СБ" or getDayRu($i) == "ВС") ? 'title-holiday' : '' ?>">
-                    <?= getDayRu($i) ?> <br> <?= date('j', getSmartDate($i)) ?> <?= getMonth(date('m', getSmartDate($i))) ?>
+                <div
+                    class="schedule-front-week-day--title <?= (getDayRu($i) == "СБ" or getDayRu($i) == "ВС") ? 'title-holiday' : '' ?>">
+                    <?= getDayRu($i) ?>
+                    <br> <?= date('j', getSmartDate($i)) ?> <?= getMonth(date('m', getSmartDate($i))) ?>
                 </div>
                 <?php foreach ($day as $d): ?>
                     <?php if (!empty($d)): ?>
-                        <div class="schedule-front-week-day--item <?= ($d[0] == '*') ? 'lock' : '' ?>" data-date="<?= date('d-m-Y', getSmartDate($i)) ?>">
+                        <div class="schedule-front-week-day--item <?= ($d[0] == '*') ? 'lock' : '' ?>"
+                             data-date="<?= date('d-m-Y', getSmartDate($i)) ?>">
                             <span style="display: none"><?= $d ?></span>
                             <?php $newD = explode('-', $d); ?>
                             <div class="schedule-front-week-day--item-time"><?= $newD[0] ?></div>
-                            <div class="schedule-front-week-day--item-price"><?= $newD[1] ?> <i class="fa fa-rub" aria-hidden="true"></i></div>
+                            <div class="schedule-front-week-day--item-price"><?= $newD[1] ?> <i class="fa fa-rub"
+                                                                                                aria-hidden="true"></i>
+                            </div>
                         </div>
                     <?php endif ?>
                 <?php endforeach; ?>
@@ -58,8 +69,8 @@
             </div>
             <?php $i++; ?>
         <?php endforeach; ?>
-        </div>
     </div>
+</div>
 </div>
 
 <!-- Modal -->
