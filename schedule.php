@@ -380,7 +380,7 @@ function scheduleApiShortcode($atts)
                         $date = (date('Y-m-d', getSmartDate($i)));
                         $d = explode('-', $day[$j]);
                         $dp = explode(' ', trim($d[1]));
-                       
+
                         $is_free = true;
                         if ($d[0][0] == '*') {
                             $is_free = false;
