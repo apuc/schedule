@@ -30,7 +30,8 @@ add_action('wp_footer', 'add_scripts_s'); // приклеем ф-ю на доб�
 function add_scripts_s()
 { // добавление скриптов
     if (is_admin()) return false; // если мы в админке - ничего не делаем
-    wp_enqueue_style('s-bootstrap', PL_URL . '/css/bootstrap/bootstrap.min.css', array(), '1');
+    wp_enqueue_style('font-ewesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', '1');
+    wp_enqueue_style('s-bootstrap', PL_URL . '/css/bootstrap/bootstrap.modal.min.css', array(), '1');
     wp_enqueue_script('s-bootstrap', PL_URL . 'js/bootstrap.min.js', array('jquery'), '', false);
     wp_enqueue_script('s-script', PL_URL . 'js/script.js', array('s-bootstrap'), '', false);
     wp_localize_script('s-script', 'myajax',
@@ -495,3 +496,38 @@ function getBook($atts)
 }
 
 add_shortcode('schedule-get', 'getBook');
+
+function getMonth($monthNumber = false) {
+    if($monthNumber){
+        $m = $monthNumber;
+    }
+    else {
+        $m = date('m');
+    }
+    switch ($m) {
+        case '01':
+            return "Января";
+        case '02':
+            return "Февраля";
+        case '03':
+            return "Марта";
+        case '04':
+            return "Апреля";
+        case '05':
+            return "Мая";
+        case '06':
+            return "Июня";
+        case '07':
+            return "Июля";
+        case '08':
+            return "Августа";
+        case '09':
+            return "Сентября";
+        case '10':
+            return "Октября";
+        case '11':
+            return "Ноября";
+        case '12':
+            return "Декабря";
+    }
+}

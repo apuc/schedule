@@ -18,11 +18,16 @@
         <?php $i = 1; ?>
         <?php foreach ($schedule[1] as $k => $day): ?>
             <div class="schedule-front-week-day" data-day="<?= $k ?>">
-                <div class="schedule-front-week-day--title"><?= getDayRu($i) ?> <br> <?= date('d-m-Y', getSmartDate($i)) ?></div>
+                <div class="schedule-front-week-day--title <?= (getDayRu($i) == "СБ" or getDayRu($i) == "ВС") ? 'title-holiday' : '' ?>">
+                    <?= getDayRu($i) ?> <br> <?= date('j', getSmartDate($i)) ?> <?= getMonth(date('m', getSmartDate($i))) ?>
+                </div>
                 <?php foreach ($day as $d): ?>
                     <?php if (!empty($d)): ?>
                         <div class="schedule-front-week-day--item <?= ($d[0] == '*') ? 'lock' : '' ?>" data-date="<?= date('d-m-Y', getSmartDate($i)) ?>">
-                            <span><?= $d ?></span>
+                            <span style="display: none"><?= $d ?></span>
+                            <?php $newD = explode('-', $d); ?>
+                            <div class="schedule-front-week-day--item-time"><?= $newD[0] ?></div>
+                            <div class="schedule-front-week-day--item-price"><?= $newD[1] ?> <i class="fa fa-rub" aria-hidden="true"></i></div>
                         </div>
                     <?php endif ?>
                 <?php endforeach; ?>
@@ -36,11 +41,16 @@
         <?php $i = 1; ?>
         <?php foreach ($schedule[2] as $k => $day): ?>
             <div class="schedule-front-week-day" data-day="<?= $k ?>">
-                <div class="schedule-front-week-day--title"><?= getDayRu($i) ?> <br> <?= date('d-m-Y', getSmartDate($i)) ?></div>
+                <div class="schedule-front-week-day--title <?= (getDayRu($i) == "СБ" or getDayRu($i) == "ВС") ? 'title-holiday' : '' ?>">
+                    <?= getDayRu($i) ?> <br> <?= date('j', getSmartDate($i)) ?> <?= getMonth(date('m', getSmartDate($i))) ?>
+                </div>
                 <?php foreach ($day as $d): ?>
                     <?php if (!empty($d)): ?>
                         <div class="schedule-front-week-day--item <?= ($d[0] == '*') ? 'lock' : '' ?>" data-date="<?= date('d-m-Y', getSmartDate($i)) ?>">
-                            <span><?= $d ?></span>
+                            <span style="display: none"><?= $d ?></span>
+                            <?php $newD = explode('-', $d); ?>
+                            <div class="schedule-front-week-day--item-time"><?= $newD[0] ?></div>
+                            <div class="schedule-front-week-day--item-price"><?= $newD[1] ?> <i class="fa fa-rub" aria-hidden="true"></i></div>
                         </div>
                     <?php endif ?>
                 <?php endforeach; ?>
@@ -58,7 +68,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Добавить время</h4>
+                <h4 class="modal-title" id="myModalLabel">Бронировать квест</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
@@ -76,9 +86,8 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary lock-add">Сохранить</button>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" class="btn btn-primary lock-add">Бронировать</button>
             </div>
         </div>
     </div>
