@@ -108,7 +108,7 @@ function schedule_menu_page()
         //s_prn($schedule);
         $schedule = json_decode(stripslashes($schedule[0]), true);
         if (empty($schedule)) {
-            $schedule = getEmptySchedule();
+            $schedule = fillSchedule();
         }
         echo $parser->render(PL_DIR . 'views/admin_q.php', [
             'schedule' => $schedule
@@ -234,6 +234,33 @@ function getEmptySchedule()
             'su' => [],
         ]
     ];
+}
+
+function getDefaultPrice(){
+    return '3500';
+}
+
+function fillSchedule(){
+    $arr = [];
+    foreach(getEmptySchedule() as $w_key => $week){
+        foreach($week as $d_key => $day){
+            $arr[$w_key][$d_key] = [
+                  '10:30 - ' . getDefaultPrice(),
+                  '12:00 - ' . getDefaultPrice(),
+                  '13:30 - ' . getDefaultPrice(),
+                  '15:00 - ' . getDefaultPrice(),
+                  '16:30 - ' . getDefaultPrice(),
+                  '18:00 - ' . getDefaultPrice(),
+                  '19:30 - ' . getDefaultPrice(),
+                  '21:00 - ' . getDefaultPrice(),
+                  '23:30 - ' . getDefaultPrice(),
+                  '00:00 - ' . getDefaultPrice(),
+                  '01:30 - ' . getDefaultPrice(),
+                  '03:00 - ' . getDefaultPrice(),
+            ];
+        }
+    }
+    return $arr;
 }
 
 /**
