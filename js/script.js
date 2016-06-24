@@ -63,6 +63,7 @@ jQuery(document).ready(function ($) {
             data: "action=add_lock&qID=" + qId + "&name=" + qName + '&email=' + qEmail + '&phone=' + qPhone + '&val=' + val + '&q_date=' + qDate,
             success: function (data) {
                 console.log(data);
+                window.location.href = '/successlock';
             }
         });
     });

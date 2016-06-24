@@ -71,24 +71,47 @@
       float: left;
       width: 95%;
       height: 50px;
-      background-color: #9ebaa0;
+      background-color: #fff;
       margin: 3px;
       padding: 5px;
       box-sizing: border-box; }
       .schedule-front-week-day--title {
         float: left;
-        width: 90px; }
+        width: 90px;
+        background-color: #00a0d2; }
       .schedule-front-week-day--item {
         float: left;
         margin: 0 15px;
         width: 75px;
-        height: 40px;
-        background-color: #fff; }
+        cursor: pointer; }
+        .schedule-front-week-day--item-time {
+          display: block;
+          float: left;
+          width: 100%;
+          height: 20px;
+          background-color: #00AA00; }
+        .schedule-front-week-day--item-price {
+          display: block;
+          float: left;
+          width: 100%;
+          height: 20px;
+          background-color: #5fc5ee; }
 
 .lock {
   background-color: #9ea476; }
 
 .empty-item {
   width: 0px; }
+
+.title-holiday {
+  background-color: #942a25; }
+
+@media only screen and (max-width: 1024px) {
+  .schedule-front-week-day {
+    height: auto; }
+    .schedule-front-week-day--title {
+      float: none; }
+    .schedule-front-week-day--item {
+      margin-top: 5px; } }
 
 /*# sourceMappingURL=style.css.map */
