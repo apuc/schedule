@@ -17,7 +17,7 @@
                     <?php if (!empty($d)): ?>
                         <span class="schedule-wrap-week-day--item">
                         <span><?= $d ?></span> <!--<a href="#" class="icon icon-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->
-                            <a href="#" class="icon icon-del" title="Удалить"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            <a href="#" class="icon icon-del" title="Удалить"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             <?php if($d[0] == '*'): ?>
                                 <a href="#" class="icon icon-unlock" title="Снять бронь"><i class="fa fa-unlock" aria-hidden="true"></i></a>
                             <?php endif; ?>
@@ -25,7 +25,7 @@
                     <?php endif ?>
                 <?php endforeach; ?>
                 <span class="schedule-wrap-week-day--item add_item">
-                <a href="#">Добавить</a>
+                <!--<a href="#">Добавить</a>-->
             </span>
             </div>
             <?php $i++; ?>
@@ -40,7 +40,7 @@
                     <?php if (!empty($d)): ?>
                         <span class="schedule-wrap-week-day--item">
                         <span><?= $d ?></span><!--<a href="#" class="icon icon-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->
-                            <a href="#" class="icon icon-del"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            <a href="#" class="icon icon-del"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             <?php if($d[0] == '*'): ?>
                                 <a href="#" class="icon icon-unlock" title="Снять бронь"><i class="fa fa-unlock" aria-hidden="true"></i></a>
                             <?php endif; ?>
@@ -48,7 +48,7 @@
                     <?php endif ?>
                 <?php endforeach; ?>
                 <span class="schedule-wrap-week-day--item add_item">
-                <a href="#">Добавить</a>
+                <!--<a href="#">Добавить</a>-->
             </span>
             </div>
             <?php $i++; ?>
@@ -66,10 +66,10 @@
             </div>
             <div class="modal-body">
                 <form role="form">
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="qTime">Время</label>
                         <input type="text" class="form-control" id="qTime" placeholder="например 16:30">
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="qPrice">Цена</label>
                         <input type="text" class="form-control" id="qPrice" placeholder="">
