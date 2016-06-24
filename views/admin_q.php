@@ -17,7 +17,7 @@
                     <?php if (!empty($d)): ?>
                         <span class="schedule-wrap-week-day--item">
                         <span><?= $d ?></span> <!--<a href="#" class="icon icon-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->
-                            <a href="#" class="icon icon-del" title="Удалить"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="#" class="icon icon-edit" title="Удалить"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             <?php if($d[0] == '*'): ?>
                                 <a href="#" class="icon icon-unlock" title="Снять бронь"><i class="fa fa-unlock" aria-hidden="true"></i></a>
                             <?php endif; ?>
@@ -40,7 +40,7 @@
                     <?php if (!empty($d)): ?>
                         <span class="schedule-wrap-week-day--item">
                         <span><?= $d ?></span><!--<a href="#" class="icon icon-edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->
-                            <a href="#" class="icon icon-del"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="#" class="icon icon-edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             <?php if($d[0] == '*'): ?>
                                 <a href="#" class="icon icon-unlock" title="Снять бронь"><i class="fa fa-unlock" aria-hidden="true"></i></a>
                             <?php endif; ?>
