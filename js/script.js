@@ -8,9 +8,8 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $('.icon-edit').on('click', function(){
-        $('#myModal').modal('show');
-        var edit = $('#qPrice').val();
+    
+
     });
     $('.schedule-add').on('click', function(){
         var qTime = $('#qTime').val();
