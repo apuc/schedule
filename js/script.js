@@ -9,14 +9,26 @@ jQuery(document).ready(function ($) {
     });
 
     $('.icon-edit').on('click', function(){
+        var qTime = $(this).data('time');
+        var qPrice = $(this).data('price');
+        var qIdNew = $(this).data('id');
+        console.log(qIdNew);
+        $('#qPrice').val(qPrice);
+        $('#qidMy').attr('data-current', qIdNew);
+        $('#qidOne').attr('data-qtime', qTime);
         $('#myModal').modal('show');
-        var edit = $('#qPrice').val();
     });
+
     $('.schedule-add').on('click', function(){
-        var qTime = $('#qTime').val();
+        /*var qTime = $('#qTime').val();
         var qPrice = $('#qPrice').val();
         var item = '<span class="schedule-wrap-week-day--item"><span> ' + qTime + ' - ' + qPrice + '</span></span>';
-        $(item).insertBefore(".add_item_active");
+        $(item).insertBefore(".add_item_active");*/
+        var qIdNew = $('#qidMy').attr('data-current');
+        console.log(qIdNew);
+        var qPrice = $('#qPrice').val();
+        var qTime = $('#qidOne').data('qtime');
+        $('#' + qIdNew).html(qTime + ' - ' + qPrice);
         $('#myModal').modal('hide');
     });
 

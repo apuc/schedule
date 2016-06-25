@@ -189,7 +189,7 @@ function getDayRu($number)
     if ($number > 7) {
         $number = $number - 7;
     }
-    if ($number == 0){
+    if ($number == 0) {
         $number = 7;
     }
     switch ($number) {
@@ -210,6 +210,34 @@ function getDayRu($number)
     }
 }
 
+function getDayRuAll($number)
+{
+    if ($number > 7 && $number <= 14) {
+        $number = $number - 7;
+    }
+    if ($number > 14) {
+        $number = $number - 14;
+    }
+    if ($number == 0) {
+        $number = 7;
+    }
+    switch ($number) {
+        case 1:
+            return "понедельник";
+        case 2:
+            return "вторник";
+        case 3:
+            return "среда";
+        case 4:
+            return "четверг";
+        case 5:
+            return "пятница";
+        case 6:
+            return "суббота";
+        case 7:
+            return "воскресенье";
+    }
+}
 
 
 function getEmptySchedule()
@@ -236,27 +264,29 @@ function getEmptySchedule()
     ];
 }
 
-function getDefaultPrice(){
+function getDefaultPrice()
+{
     return '3500';
 }
 
-function fillSchedule(){
+function fillSchedule()
+{
     $arr = [];
-    foreach(getEmptySchedule() as $w_key => $week){
-        foreach($week as $d_key => $day){
+    foreach (getEmptySchedule() as $w_key => $week) {
+        foreach ($week as $d_key => $day) {
             $arr[$w_key][$d_key] = [
-                  '10:30 - ' . getDefaultPrice(),
-                  '12:00 - ' . getDefaultPrice(),
-                  '13:30 - ' . getDefaultPrice(),
-                  '15:00 - ' . getDefaultPrice(),
-                  '16:30 - ' . getDefaultPrice(),
-                  '18:00 - ' . getDefaultPrice(),
-                  '19:30 - ' . getDefaultPrice(),
-                  '21:00 - ' . getDefaultPrice(),
-                  '23:30 - ' . getDefaultPrice(),
-                  '00:00 - ' . getDefaultPrice(),
-                  '01:30 - ' . getDefaultPrice(),
-                  '03:00 - ' . getDefaultPrice(),
+                '10:30 - ' . getDefaultPrice(),
+                '12:00 - ' . getDefaultPrice(),
+                '13:30 - ' . getDefaultPrice(),
+                '15:00 - ' . getDefaultPrice(),
+                '16:30 - ' . getDefaultPrice(),
+                '18:00 - ' . getDefaultPrice(),
+                '19:30 - ' . getDefaultPrice(),
+                '21:00 - ' . getDefaultPrice(),
+                '23:30 - ' . getDefaultPrice(),
+                '00:00 - ' . getDefaultPrice(),
+                '01:30 - ' . getDefaultPrice(),
+                '03:00 - ' . getDefaultPrice(),
             ];
         }
     }
@@ -280,9 +310,10 @@ function scheduleShortcode($atts)
     if (empty($schedule)) {
         $schedule = getEmptySchedule();
     }
-    echo $parser->render(PL_DIR . 'views/schedule.php', [
+    echo $parser->render(PL_DIR . 'views/schedule_new.php', [
         'schedule' => $schedule,
         'qId' => $atts['id'],
+        'parser' => $parser
     ]);
 }
 
@@ -570,6 +601,32 @@ function getScheduleToDay($id, $day, $week)
     $schedule = get_post_meta($id, 'schedule');
     $schedule = json_decode(stripslashes($schedule[0]), true);
     $day = ($day == 0) ? 7 : $day;
+    if ($day > 7 && $week == 1) {
+        $day = $day - 7;
+        $week = 2;
+    }
+    if ($day > 7 && $day <= 14 && $week == 2) {
+        $day = $day - 7;
+        $week = 1;
+    }
+    if ($day > 14 && $week == 2) {
+        $day = $day - 14;
+        $week = 1;
+    }
     $day = getDay($day);
-    s_prn($schedule[$week][$day]);
+    return $schedule[$week][$day];
 }
+
+function getDayFor7($count)
+{
+    //s_prn($count);
+    $time = time() + 60 * 60 * 24 * $count;
+    return date('d', $time);
+}
+
+function getMonthFor7($count)
+{
+    $time = time() + 60 * 60 * 24 * $count;
+    return date('m', $time);
+}
+
