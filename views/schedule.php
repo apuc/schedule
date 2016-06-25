@@ -17,6 +17,7 @@
     <div class="schedule-front-week" data-week="1">
 <?php getScheduleToDay(get_the_ID(), date('w'),1) ?>
         <?php $i = date('w'); ?>
+        
         <?php foreach ($schedule[1] as $k => $day): ?>
             <div class="schedule-front-week-day" data-day="<?= $k ?>">
                 <div

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .schedule-wrap-week {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -113,5 +114,253 @@
       float: none; }
     .schedule-front-week-day--item {
       margin-top: 5px; } }
+/*
+╨Т╤Л╨▓╨╛╨┤ ╤А╨░╤Б╨┐╨╕╤Б╨░╨╜╨╕╤П front
+*/
+@media (min-width: 1200px) {
+  .container {
+    width: 1090px;
+    margin: 0 auto;
+    padding: 0 5px; } }
+html {
+  width: 100%; }
+
+* {
+  box-sizing: border-box; }
+
+.front-sc {
+  background-color: #3a3a3d; }
+
+.scedual {
+  display: block;
+  position: relative;
+  width: 100%;
+  float: left;
+  padding: 31px 0 58px;
+  /*price-box*/
+  /*close price-box*/ }
+  .scedual__title {
+    display: block;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    padding: 0 0 33px;
+    font: 18px/20px 'Roboto', Arial, Helvetica, sans-serif; }
+    .scedual__title img {
+      vertical-align: middle;
+      margin: 0 0 3px 5px; }
+  .scedual__today {
+    display: block;
+    position: relative;
+    width: 1073px;
+    height: 33px;
+    float: left;
+    border: 1px solid #595959; }
+    .scedual__today p {
+      display: inline-block;
+      position: relative;
+      width: 195px;
+      float: left;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 9px 24px;
+      margin: 0px;
+      margin-left: -13px;
+      text-align: center; }
+    .scedual__today--week {
+      display: inline-block;
+      position: relative;
+      width: 843px;
+      float: left;
+      list-style: none;
+      padding-left: 0px;
+      margin: 0px; }
+      .scedual__today--week li {
+        display: inline-block;
+        float: left;
+        width: auto;
+        height: 30px;
+        margin-top: 1px; }
+        .scedual__today--week li a {
+          display: inline-block;
+          position: relative;
+          width: 60px;
+          height: auto;
+          color: #666;
+          text-align: center;
+          text-decoration: none;
+          line-height: 30px; }
+          .scedual__today--week li a:hover {
+            background-color: #e5200e; }
+        .scedual__today--week li .day-off {
+          color: #e5200e; }
+          .scedual__today--week li .day-off:hover {
+            color: white; }
+      .scedual__today--week li.active {
+        background-color: #e5200e; }
+        .scedual__today--week li.active a {
+          color: white; }
+  .scedual__days {
+    display: block;
+    position: relative;
+    width: 1073px;
+    height: 33px;
+    float: left;
+    border: 1px solid transparent;
+    margin-bottom: 32px; }
+    .scedual__days p {
+      display: inline-block;
+      position: relative;
+      width: 195px;
+      float: left;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 9px 24px;
+      margin: 0px;
+      margin-left: -13px;
+      text-align: center; }
+    .scedual__days--week {
+      display: inline-block;
+      position: relative;
+      width: 843px;
+      float: left;
+      list-style: none;
+      padding-left: 0px;
+      margin: 0px; }
+      .scedual__days--week li {
+        display: inline-block;
+        float: left;
+        width: auto;
+        height: 30px;
+        margin-top: 1px; }
+        .scedual__days--week li span {
+          display: inline-block;
+          position: relative;
+          width: 60px;
+          height: auto;
+          color: #666;
+          text-align: center;
+          text-decoration: none;
+          line-height: 30px; }
+        .scedual__days--week li .day-off {
+          color: #e5200e; }
+          .scedual__days--week li .day-off:hover {
+            color: #e5200e; }
+  .scedual .price__box {
+    width: 100%;
+    float: left; }
+  .scedual .price__box_line {
+    float: left;
+    width: 100%;
+    text-align: left; }
+  .scedual .price__day {
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    float: left;
+    background-color: #323234;
+    margin-right: 5px;
+    border-right: 1px solid #444445; }
+    .scedual .price__day p {
+      font-size: 14px;
+      padding-left: 30px;
+      margin-bottom: 18px;
+      color: #fff; }
+      .scedual .price__day p a {
+        color: white; }
+        .scedual .price__day p a:hover {
+          text-decoration: none; }
+    .scedual .price__day .day-off {
+      color: red; }
+  .scedual .price__box:nth-of-type(even) .price__box_line .price__day {
+    background-color: #444445; }
+  .scedual .price__box:nth-of-type(even) .price__box_line .price__item_price-inner {
+    background-color: #323234; }
+  .scedual .price__box:nth-of-type(odd) .price__box_line .price__item {
+    background-color: #444445; }
+  .scedual .price__box:nth-of-type(odd) .price__box_line .price__item_price-inner {
+    background-color: #444445; }
+  .scedual .price__item {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    /*float: left;*/
+    color: #fff;
+    /*margin: 0 2px;
+    padding: 0px 5px;*/
+    background-color: #323234; }
+  .scedual .price__item ul {
+    width: 100%;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+    margin: 7px 0px; }
+  .scedual .price__item ul li {
+    display: inline-block;
+    padding: 5px 15px;
+    /*margin: 0px 2px;*/ }
+  .scedual .price__item ul li a {
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold; }
+    .scedual .price__item ul li a:hover {
+      background-color: red; }
+  .scedual .price__item ul li a.late {
+    color: gray;
+    text-decoration: none;
+    font-weight: bold; }
+    .scedual .price__item ul li a.late:hover {
+      color: gray;
+      background-color: transparent; }
+  .scedual span.line {
+    position: absolute;
+    left: 0;
+    bottom: 11px;
+    height: 1px;
+    width: 100%;
+    background-color: gray;
+    text-align: center; }
+  .scedual span.price__item_price {
+    position: relative;
+    float: left;
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding: 5px 0;
+    margin-bottom: 12px; }
+  .scedual span.price__item_price:before {
+    content: '';
+    display: block;
+    clear: both;
+    height: 5px;
+    width: 1px;
+    position: absolute;
+    right: 0;
+    bottom: 9px;
+    background-color: gray;
+    transform: translateY(-50%);
+    z-index: 0; }
+  .scedual span.price__item_price:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 5px;
+    width: 1px;
+    position: absolute;
+    left: 0;
+    bottom: 9px;
+    background-color: gray;
+    transform: translateY(-50%);
+    z-index: 0; }
+  .scedual .price__item_price-inner {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 10px;
+    background-color: #373739; }
 
 /*# sourceMappingURL=style.css.map */
