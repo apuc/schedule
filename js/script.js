@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
         console.log(qIdNew);
         $('#qPrice').val(qPrice);
         $('#qidMy').attr('data-current', qIdNew);
-        $('#qidOne').attr('data-qtime', qTime);
+        $('#qidOneMy').attr('data-qtime', qTime);
         $('#myModal').modal('show');
     });
 
@@ -24,11 +24,9 @@ jQuery(document).ready(function ($) {
         var qPrice = $('#qPrice').val();
         var item = '<span class="schedule-wrap-week-day--item"><span> ' + qTime + ' - ' + qPrice + '</span></span>';
         $(item).insertBefore(".add_item_active");*/
-        console.log($('#qidOne').data('qtime'));
         var qIdNew = $('#qidMy').attr('data-current');
-        console.log(qIdNew);
         var qPrice = $('#qPrice').val();
-        var qTime = $('#qidOne').data('qtime');
+        var qTime = $('#qidOneMy').attr('data-qtime');
         console.log(qTime);
         $('#' + qIdNew).html(qTime + ' - ' + qPrice);
         $('#myModal').modal('hide');

@@ -95,7 +95,7 @@
                 </form>
             </div>
             <span id="qidMy" data-current="0"></span>
-            <span id="qidOne" data-qtime="0"></span>
+            <span id="qidOneMy" data-qtime="0"></span>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary schedule-add">Сохранить</button>
