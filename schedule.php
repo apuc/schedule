@@ -166,6 +166,17 @@ function save_schedule()
 
 function getDay($number)
 {
+
+    if ($number > 7 && $number < 14) {
+        $number = $number - 7;
+    }
+    if ($number >= 14) {
+        $number = $number - 14;
+    }
+    if ($number == 0) {
+        $number = 7;
+    }
+    //s_prn($number);
     switch ($number) {
         case 1:
             return "mo";
@@ -603,15 +614,12 @@ function getScheduleToDay($id, $day, $week)
     $day = ($day == 0) ? 7 : $day;
     if ($day > 7 && $week == 1) {
         $day = $day - 7;
-        $week = 2;
     }
     if ($day > 7 && $day <= 14 && $week == 2) {
         $day = $day - 7;
-        $week = 1;
     }
     if ($day > 14 && $week == 2) {
         $day = $day - 14;
-        $week = 1;
     }
     $day = getDay($day);
     return $schedule[$week][$day];
@@ -630,3 +638,21 @@ function getMonthFor7($count)
     return date('m', $time);
 }
 
+function getScheduleOneDay()
+{
+    $parser = new Parser_s();
+    $args = array(
+        'post_type' => 'quest',
+        'post_status' => 'publish',
+        'posts_per_page' => -1
+    );
+
+    $my_query = null;
+    $my_query = new WP_Query($args);
+
+
+    echo $parser->render(PL_DIR . '/views/schedule_one_day.php', [
+        'my_query' => $my_query,
+    ]);
+}
+add_shortcode('one_day', 'getScheduleOneDay');

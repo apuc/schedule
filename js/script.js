@@ -24,10 +24,12 @@ jQuery(document).ready(function ($) {
         var qPrice = $('#qPrice').val();
         var item = '<span class="schedule-wrap-week-day--item"><span> ' + qTime + ' - ' + qPrice + '</span></span>';
         $(item).insertBefore(".add_item_active");*/
+        console.log($('#qidOne').data('qtime'));
         var qIdNew = $('#qidMy').attr('data-current');
         console.log(qIdNew);
         var qPrice = $('#qPrice').val();
         var qTime = $('#qidOne').data('qtime');
+        console.log(qTime);
         $('#' + qIdNew).html(qTime + ' - ' + qPrice);
         $('#myModal').modal('hide');
     });
@@ -105,7 +107,7 @@ jQuery(document).ready(function ($) {
             var day = $(this).parent().data('day');
 
             if(!$(this).hasClass('add_item')){
-                //console.log(week + ' - ' + day + ' - ' + $(this).html());
+                console.log(week + ' - ' + day );
                 arr[i] = {week:week, day:day, val:$(this).find('span').html()};
             }
             else {
@@ -113,7 +115,7 @@ jQuery(document).ready(function ($) {
             }
             i++;
         });
-        console.log(arr);
+        //console.log(arr);
         arr = JSON.stringify(arr);
 
         $.ajax({
