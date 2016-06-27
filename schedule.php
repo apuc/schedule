@@ -638,3 +638,21 @@ function getMonthFor7($count)
     return date('m', $time);
 }
 
+function getScheduleOneDay()
+{
+    $parser = new Parser_s();
+    $args = array(
+        'post_type' => 'quest',
+        'post_status' => 'publish',
+        'posts_per_page' => -1
+    );
+
+    $my_query = null;
+    $my_query = new WP_Query($args);
+
+
+    echo $parser->render(PL_DIR . '/views/schedule_one_day.php', [
+        'my_query' => $my_query,
+    ]);
+}
+add_shortcode('one_day', 'getScheduleOneDay');
