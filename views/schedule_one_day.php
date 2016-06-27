@@ -1,27 +1,34 @@
 <?php
 /**
- * @var  $my_query object WP_Query
+ * Created by PhpStorm.
+ * User: apuc0
+ * Date: 31.05.2016
+ * Time: 14:37
+ *
+ * @var $schedule array
+ * @var $qId integer
+ * @var $my_query
+ * @var $s_prn
+ *
  */
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-    <link rel="stylesheet" href="sass/style.css">
-</head>
-<body>
+<?php $parser = new Parser_s(); ?>
 
 <section class="scedual">
     <div class="container">
-        <h1 class="scedual__title">24 июня <img src="img/icon22.png" alt=""></h1>
+        <h1 class="scedual__title"><?= getScheduleToDay(get_the_ID(), date('w'), 1) ?> <img src="img/icon22.png" alt="">
+        </h1>
+        <?php $j = date('w') ?>
 
         <div class="scedual__today">
-            <p>24 июня</p>
+
+            <p></p>
+
             <ul class="scedual__today--week">
-                <li class="active"><a class="go" href="#">24</a></li>
+
+
+                <li class="active"><a class="go" href="#"> 24</a></li>
+
                 <li><a class="day-off go" href="#">25</a></li>
                 <li><a class="day-off go" href="#">26</a></li>
                 <li><a class="go" href="#">27</a></li>
@@ -35,13 +42,20 @@
                 <li><a class="go" href="#">5</a></li>
                 <li><a class="go" href="#">6</a></li>
                 <li><a class="go" href="#">7</a></li>
+
             </ul>
+
+
         </div>
+
+
         <div class="scedual__days">
+
             <p>Сегодня</p>
+
             <ul class="scedual__days--week">
-                <li><span>пт</span></li>
-                <li><span class="day-off">сб</span></li>
+                <li><span>сб</span></li>
+
                 <li><span class="day-off">вс</span></li>
                 <li><span>пн</span></li>
                 <li><span>вт</span></li>
@@ -55,201 +69,205 @@
                 <li><span>ср</span></li>
                 <li><span>чт</span></li>
             </ul>
+
         </div>
 
 
         <h3 class="title">
-            24 июня
+
+            <?= getDayFor7($j-1) ?>
         </h3>
+
+
         <div class="field"></div>
+        <?php if ($my_query->have_posts()): ?>
+            <?php while ($my_query->have_posts()) : $my_query->the_post(); ?>
+                <div class="price__box">
+                    <div class="price__box_line">
 
-        <div class="price__box">
+                        <div class="price__day">
+                            <p>
+                                <a href="#"><?= the_title() ?></a>
+                            </p>
+                            <p></p>
+                        </div>
+                        <?php $sc = getScheduleToDay(get_the_ID(), $j, 1) ?>
+                        <?php //s_prn($sc); ?>
+                        <?php $old_price = 0 ?>
+                        <?php $old_price_last = 0 ?>
+                        <?php //s_prn($sc); ?>
+                        <?php foreach ($sc as $key => $item): ?>
+                            <?php if (!empty($item)): ?>
+                                <?php $tp = explode('-', $item); ?>
+                                <?php $time = trim($tp[0]) ?>
+                                <?php $price = trim($tp[1]) ?>
 
-            <div class="price__box_line">
-                <div class="price__day">
-                    <p><a href="">Супермаркет зомби II</a></p>
-                    <p>2-5 игроков, 60 минут, 16+</p>
-                </div>
+                                <?php $prev_tp = explode('-', $sc[$key - 1]) ?>
+                                <?php if ($key == 0 || trim($prev_tp[1]) != $price): ?>
+                                    <?php $parser->render(PL_DIR . 'views/s_time_start.php', [
+                                        'time' => $time
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php $parser->render(PL_DIR . 'views/s_time_middle.php', [
+                                        'time' => $time
+                                    ]); ?>
+                                <?php endif; ?>
 
-                <div class="price__item">
-                    <ul>
-                        <li><a class="late go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-
-                </div>
-                <div class="price__item">
-                    <ul>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="late go" href="#">19:30</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-                </div>
-            </div>
-        </div>
-        <div class="price__box">
-            <div class="price__box_line">
-                <div class="price__day">
-                    <p><a class="go" href="#">Супермаркет зомби II</a></p>
-                    <p>2-5 игроков, 60 минут, 16+</p>
-                </div>
-                <div class="price__item">
-                    <ul>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-                </div>
-                <div class="price__item">
-                    <ul>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-                </div>
-            </div>
-        </div>
-        <div class="price__box">
-            <div class="price__box_line">
-                <div class="price__day">
-                    <p><a class="go" href="#">Супермаркет зомби II</a></p>
-                    <p>2-5 игроков, 60 минут, 16+</p>
-                </div>
-                <div class="price__item">
-                    <ul>
-                        <li><a class="late go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-                </div>
-                <div class="price__item">
-                    <ul>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="late go" href="#">19:30</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-                </div>
-            </div>
-        </div>
-        <div class="price__box">
-            <div class="price__box_line">
-                <div class="price__day">
-                    <p><a class="go" href="#">Супермаркет зомби II</a></p>
-                    <p>2-5 игроков, 60 минут, 16+</p>
-                </div>
-                <div class="price__item">
-                    <ul>
-                        <li><a class="late go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" class="late" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" class="late" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-                </div>
-                <div class="price__item">
-                    <ul>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" class="late" href="#">19:30</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                        <li><a class="go" href="#">10:00</a></li>
-                    </ul>
-
-                      <span class="price__item_price">
-                          <span class="line"></span>
-                        <span class="price__item_price-inner">
-                          1000 р.
-                        </span>
-                      </span>
-                </div>
-            </div>
-            <div class="price__box">
-                <div class="price__box_line">
-                    <div class="price__day">
-                        <p><a class="go" href="#">Супермаркет зомби II</a></p>
-                        <p>2-5 игроков, 60 минут, 16+</p>
-                    </div>
-                    <div class="price__item--quest">
-
-                        <ul>
-                            <li><a class="book-quest go" href="#">Забронировать квест Лаборатория 33</a></li>
-
-                        </ul>
-
+                                <?php $next_tp = explode('-', $sc[$key + 1]) ?>
+                                <?php if (trim($next_tp[1]) != $price || $time == '03:00'): ?>
+                                    <?php $parser->render(PL_DIR . 'views/s_time_last.php', [
+                                        'price' => $price
+                                    ]); ?>
+                                <?php endif ?>
+                            <?php endif ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div>
-        </div>
+            <?php endwhile;
+            wp_reset_query(); ?>
+        <?php endif ?>
+        <!-- <div class="price__box">
+             <div class="price__box_line">
+                 <div class="price__day">
+                     <p><a class="go" href="#">Супермаркет зомби II</a></p>
+                     <p>2-5 игроков, 60 минут, 16+</p>
+                 </div>
+                 <div class="price__item">
+                     <ul>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                     </ul>
+
+                       <span class="price__item_price">
+                           <span class="line"></span>
+                         <span class="price__item_price-inner">
+                           1000 р.
+                         </span>
+                       </span>
+                 </div>
+                 <div class="price__item">
+                     <ul>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                     </ul>
+
+                       <span class="price__item_price">
+                           <span class="line"></span>
+                         <span class="price__item_price-inner">
+                           1000 р.
+                         </span>
+                       </span>
+                 </div>
+             </div>
+         </div>
+         <div class="price__box">
+             <div class="price__box_line">
+                 <div class="price__day">
+                     <p><a class="go" href="#">Супермаркет зомби II</a></p>
+                     <p>2-5 игроков, 60 минут, 16+</p>
+                 </div>
+                 <div class="price__item">
+                     <ul>
+                         <li><a class="late go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                     </ul>
+
+                       <span class="price__item_price">
+                           <span class="line"></span>
+                         <span class="price__item_price-inner">
+                           1000 р.
+                         </span>
+                       </span>
+                 </div>
+                 <div class="price__item">
+                     <ul>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="late go" href="#">19:30</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                     </ul>
+
+                       <span class="price__item_price">
+                           <span class="line"></span>
+                         <span class="price__item_price-inner">
+                           1000 р.
+                         </span>
+                       </span>
+                 </div>
+             </div>
+         </div>
+         <div class="price__box">
+             <div class="price__box_line">
+                 <div class="price__day">
+                     <p><a class="go" href="#">Супермаркет зомби II</a></p>
+                     <p>2-5 игроков, 60 минут, 16+</p>
+                 </div>
+                 <div class="price__item">
+                     <ul>
+                         <li><a class="late go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" class="late" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" class="late" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                     </ul>
+
+                       <span class="price__item_price">
+                           <span class="line"></span>
+                         <span class="price__item_price-inner">
+                           1000 р.
+                         </span>
+                       </span>
+                 </div>
+                 <div class="price__item">
+                     <ul>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" class="late" href="#">19:30</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                         <li><a class="go" href="#">10:00</a></li>
+                     </ul>
+
+                       <span class="price__item_price">
+                           <span class="line"></span>
+                         <span class="price__item_price-inner">
+                           1000 р.
+                         </span>
+                       </span>
+                 </div>
+             </div>
+             <div class="price__box">
+                 <div class="price__box_line">
+                     <div class="price__day">
+                         <p><a class="go" href="#">Супермаркет зомби II</a></p>
+                         <p>2-5 игроков, 60 минут, 16+</p>
+                     </div>
+                     <div class="price__item--quest">
+
+                         <ul>
+                             <li><a class="book-quest go" href="#">Забронировать квест Лаборатория 33</a></li>
+
+                         </ul>
+
+                     </div>
+                 </div>
+             </div>
+         </div>-->
 
     </div>
 
@@ -324,7 +342,3 @@
 <!-- Modal end-->
 <!--close window-->
 
-</body>
-<script src="js/jquery-3.0.0.min.js" type="text/javascript"></script>
-<script src="js/script.js" type="text/javascript"></script>
-</html>
