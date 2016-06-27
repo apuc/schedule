@@ -205,19 +205,19 @@ function getDayRu($number)
     }
     switch ($number) {
         case 1:
-            return "ПН";
+            return "пн";
         case 2:
-            return "ВТ";
+            return "вт";
         case 3:
-            return "СР";
+            return "ср";
         case 4:
-            return "ЧТ";
+            return "чт";
         case 5:
-            return "ПТ";
+            return "пт";
         case 6:
-            return "СБ";
+            return "сб";
         case 7:
-            return "ВС";
+            return "вс";
     }
 }
 
@@ -581,29 +581,29 @@ function getMonth($monthNumber = false)
     }
     switch ($m) {
         case '01':
-            return "Января";
+            return "января";
         case '02':
-            return "Февраля";
+            return "февраля";
         case '03':
-            return "Марта";
+            return "марта";
         case '04':
-            return "Апреля";
+            return "апреля";
         case '05':
-            return "Мая";
+            return "мая";
         case '06':
-            return "Июня";
+            return "июня";
         case '07':
-            return "Июля";
+            return "июля";
         case '08':
-            return "Августа";
+            return "августа";
         case '09':
-            return "Сентября";
+            return "сентября";
         case '10':
-            return "Октября";
+            return "октября";
         case '11':
-            return "Ноября";
+            return "ноября";
         case '12':
-            return "Декабря";
+            return "декабря";
     }
 }
 
@@ -656,3 +656,56 @@ function getScheduleOneDay()
     ]);
 }
 add_shortcode('one_day', 'getScheduleOneDay');
+
+function dayOff($today)
+{
+    $time = (time() + 60 * 60 * 24 * $today);
+    return date('w', $time);
+}
+
+function dayToday($today)
+{
+    $time = (time() + 60 * 60 * 24 * $today);
+    return date('d', $time);
+}
+
+function getToMonth($today)
+{
+    $time = (time() + 60 * 60 * 24 * $today);
+    return date('m', $time);
+}
+
+function extraFieldsQuestDescription($post)
+{
+    ?>
+    <p>
+        <span>Описание: </span>
+        <input type="text" name='extra[desc]' style="width: 100%"  value="<?php echo get_post_meta($post->ID, "desc", 1); ?>">
+    </p>
+    <?php
+}
+
+function extraFieldsQuest()
+{
+    add_meta_box('extra_desc', 'Описание', 'extraFieldsQuestDescription', 'quest', 'normal', 'high');
+}
+
+add_action('add_meta_boxes', 'extraFieldsQuest', 1);
+
+/* Сохраняем данные, при сохранении поста */
+add_action('save_post', 'myExtraFieldsUpdate', 10, 1);
+function myExtraFieldsUpdate($post_id)
+{
+    if (!isset($_POST['extra'])) return false;
+    foreach ($_POST['extra'] as $key => $value) {
+        if (empty($value)) {
+            delete_post_meta($post_id, $key); // удаляем поле если значение пустое
+            continue;
+        }
+
+        update_post_meta($post_id, $key, $value); // add_post_meta() работает автоматически
+    }
+    return $post_id;
+}
+
+

@@ -7,8 +7,8 @@
             <div class="price__box">
                 <div class="price__box_line">
                     <div class="price__day">
-                        <p class="<?= ($j == 6 || $j == 7) ? 'day-off' : '' ?>"><?= getDayFor7($i - 1) ?> <?= getMonth(); ?></p>
-                        <p class="<?= ($j == 6 || $j == 7) ? 'day-off' : '' ?>"><?= getDayRuAll($j); ?></p>
+                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"><?= getDayFor7($i - 1) ?> <?= getMonth(); ?></p>
+                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"><?= getDayRuAll($j); ?></p>
                     </div>
                     <?php $sc = getScheduleToDay(get_the_ID(), $j, 1) ?>
                     <?php //s_prn($sc); ?>
@@ -20,7 +20,6 @@
                             <?php $tp = explode('-', $item); ?>
                             <?php $time = trim($tp[0]) ?>
                             <?php $price = trim($tp[1]) ?>
-
                             <?php $prev_tp = explode('-', $sc[$key - 1]) ?>
                             <?php if ($key == 0 || trim($prev_tp[1]) != $price): ?>
                                 <?php $parser->render(PL_DIR . 'views/s_time_start.php', [
@@ -31,7 +30,6 @@
                                     'time' => $time
                                 ]); ?>
                             <?php endif; ?>
-
                             <?php $next_tp = explode('-', $sc[$key + 1]) ?>
                             <?php if (trim($next_tp[1]) != $price || $time == '03:00'): ?>
                                 <?php $parser->render(PL_DIR . 'views/s_time_last.php', [
@@ -44,27 +42,23 @@
             </div>
             <?php $j++ ?>
         <?php endfor; ?>
-
         <?php for ($i = 8; $i <= 14; $i++): ?>
             <div class="price__box">
                 <div class="price__box_line">
                     <div class="price__day">
-                        <p class="<?= ($j == 6 || $j == 7) ? 'day-off' : '' ?>">
-                            <?= getDayFor7($i - 1) ?> <?= getMonth(getMonthFor7($i-1)); ?>
+                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>">
+                           <?= getDayFor7($i - 1) ?> <?= getMonth(getMonthFor7($i-1)); ?>
                         </p>
-                        <p class="<?= ($j == 6 || $j == 7) ? 'day-off' : '' ?>"><?= getDayRuAll($j); ?></p>
+                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"><?= getDayRuAll($j); ?></p>
                     </div>
                     <?php $sc = getScheduleToDay(get_the_ID(), $j, 2) ?>
-                    <?php //s_prn($sc); ?>
                     <?php $old_price = 0 ?>
                     <?php $old_price_last = 0 ?>
-                    <?php //s_prn($sc); ?>
                     <?php foreach ($sc as $key => $item): ?>
                         <?php if (!empty($item)): ?>
                             <?php $tp = explode('-', $item); ?>
                             <?php $time = trim($tp[0]) ?>
                             <?php $price = trim($tp[1]) ?>
-
                             <?php $prev_tp = explode('-', $sc[$key - 1]) ?>
                             <?php if ($key == 0 || trim($prev_tp[1]) != $price): ?>
                                 <?php $parser->render(PL_DIR . 'views/s_time_start.php', [
