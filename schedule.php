@@ -197,8 +197,11 @@ function getDay($number)
 
 function getDayRu($number)
 {
-    if ($number > 7) {
+    if ($number > 7 && $number <= 14) {
         $number = $number - 7;
+    }
+    if($number > 14){
+        $number = $number - 14;
     }
     if ($number == 0) {
         $number = 7;
@@ -655,17 +658,18 @@ function getScheduleOneDay()
         'my_query' => $my_query,
     ]);
 }
+
 add_shortcode('one_day', 'getScheduleOneDay');
 
 function dayOff($today)
 {
-    $time = (time() + 60 * 60 * 24 * $today);
+    $time = (time() + 60 * 60 * 24 * $today) - (60 * 60 * 24 * 2);
     return date('w', $time);
 }
 
 function dayToday($today)
 {
-    $time = ( time() + 60 * 60 * 24 * $today ) - ( 60 * 60 * 24 );
+    $time = (time() + 60 * 60 * 24 * $today) - (60 * 60 * 24);
     return date('d', $time);
 }
 
@@ -680,7 +684,8 @@ function extraFieldsQuestDescription($post)
     ?>
     <p>
         <span>Описание: </span>
-        <input type="text" name='extra[desc]' style="width: 100%"  value="<?php echo get_post_meta($post->ID, "desc", 1); ?>">
+        <input type="text" name='extra[desc]' style="width: 100%"
+               value="<?php echo get_post_meta($post->ID, "desc", 1); ?>">
     </p>
     <?php
 }

@@ -21,8 +21,9 @@
             <p></p>
             <ul class="scedual__today--week">
                 <?php for ($j = 1; $j <= 14; $j++) : ?>
+                    <?php //s_prn(dayOff($i)); ?>
                     <li class="<?= ($i == $_GET['today'] || (!isset($_GET['today']) && $j == 1)) ? 'active' : '' ?>">
-                        <a class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"
+                        <a class="<?= (dayOff($i) == 6 || dayOff($i) == 0) ? 'day-off go' : '' ?>"
                            href="/schedule/?today=<?= $i; ?>">
                             <?= getDayFor7($j - 1) ?>
                         </a>
@@ -31,12 +32,13 @@
                 <?php endfor; ?>
             </ul>
         </div>
+        <?php $i = date('w') ?>
         <div class="scedual__days">
             <p>Сегодня</p>
             <ul class="scedual__days--week">
                 <?php for ($j = 1; $j <= 14; $j++) : ?>
                     <li><span
-                            class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off' : '' ?>"> <?= getDayRu($j); ?></span>
+                            class="<?= (dayOff($i) == 6 || dayOff($i) == 0) ? 'day-off' : '' ?>"> <?= getDayRu($i); ?></span>
                     </li>
                     <?php $i++; ?>
                 <?php endfor; ?>
