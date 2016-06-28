@@ -665,7 +665,7 @@ function dayOff($today)
 
 function dayToday($today)
 {
-    $time = (time() + 60 * 60 * 24 * $today);
+    $time = ( time() + 60 * 60 * 24 * $today ) - ( 60 * 60 * 24 );
     return date('d', $time);
 }
 

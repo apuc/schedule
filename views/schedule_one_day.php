@@ -21,7 +21,7 @@
             <p></p>
             <ul class="scedual__today--week">
                 <?php for ($j = 1; $j <= 14; $j++) : ?>
-                    <li class="<?= ($j == $_GET['today']) ? 'active' : '' ?>">
+                    <li class="<?= ($i == $_GET['today'] || (!isset($_GET['today']) && $j == 1)) ? 'active' : '' ?>">
                         <a class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"
                            href="/schedule/?today=<?= $i; ?>">
                             <?= getDayFor7($j - 1) ?>
@@ -44,7 +44,7 @@
         </div>
 
         <h3 class="title">
-            <?=  dayToday(isset($_GET['today'])? $_GET['today'] - 1: $i+1); ?> &nbsp;<?= getMonth(getToMonth(isset($_GET['today'])? $_GET['today'] - 1: $i-1)); ?>
+            <?=  dayToday(isset($_GET['today'])? $_GET['today'] - 1: 1); ?> &nbsp;<?= getMonth(getToMonth(isset($_GET['today'])? $_GET['today'] - 1: $i-1)); ?>
         </h3>
         <div class="field"></div>
         <?php if ($my_query->have_posts()): ?>
@@ -57,7 +57,7 @@
                             </p>
                             <p><?php echo get_post_meta(get_the_ID(), "desc", 1); ?></p>
                         </div>
-                        <?php $sc = getScheduleToDay(get_the_ID(), (isset($_GET['today']) ? $_GET['today'] : $j), 1) ?>
+                        <?php $sc = getScheduleToDay(get_the_ID(), (isset($_GET['today']) ? $_GET['today'] : date('w')), 1) ?>
                         <?php //s_prn($sc); ?>
                         <?php $old_price = 0 ?>
                         <?php $old_price_last = 0 ?>
