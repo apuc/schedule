@@ -182,6 +182,7 @@ input[type='text']:focus{
   width: 100%;
   float: left;
   padding: 31px 0 58px;
+  background-color: #3a3a3d;
   &__title {
     display: block;
     text-align: center;
@@ -450,7 +451,7 @@ input[type='text']:focus{
     bottom: 11px;
     height: 1px;
     width: 100%;
-    background-color: gray;
+    background-color: red;
     text-align: center;
   }
   span.price__item_price {
@@ -473,7 +474,7 @@ input[type='text']:focus{
     position: absolute;
     right: 0;
     bottom: 9px;
-    background-color: gray;
+    background-color: red;
     transform: translateY(-50%);
     z-index: 0;
   }
@@ -486,7 +487,7 @@ input[type='text']:focus{
     position: absolute;
     left: 0;
     bottom: 9px;
-    background-color: gray;
+    background-color: red;
     transform: translateY(-50%);
     z-index: 0;
   }

@@ -631,7 +631,7 @@ function getScheduleToDay($id, $day, $week)
 function getDayFor7($count)
 {
     //s_prn($count);
-    $time = time() + 60 * 60 * 24 * $count;
+    $time = (time() + 60 * 60 * 24 * $count) - (60 * 60 * 24 * 2);
     return date('d', $time);
 }
 

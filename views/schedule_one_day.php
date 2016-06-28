@@ -25,7 +25,7 @@
                     <li class="<?= ($i == $_GET['today'] || (!isset($_GET['today']) && $j == 1)) ? 'active' : '' ?>">
                         <a class="<?= (dayOff($i) == 6 || dayOff($i) == 0) ? 'day-off go' : '' ?>"
                            href="/schedule/?today=<?= $i; ?>">
-                            <?= getDayFor7($j - 1) ?>
+                            <?= getDayFor7($i) ?>
                         </a>
                     </li>
                     <?php $i++; ?>

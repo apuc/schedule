@@ -7,8 +7,8 @@
             <div class="price__box">
                 <div class="price__box_line">
                     <div class="price__day">
-                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"><?= getDayFor7($i - 1) ?> <?= getMonth(); ?></p>
-                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"><?= getDayRuAll($j); ?></p>
+                        <p class="<?= (dayOff($j) == 6 || dayOff($j) == 0) ? 'day-off go' : '' ?>"><?= getDayFor7($j) ?> <?= getMonth(); ?></p>
+                        <p class="<?= (dayOff($j) == 6 || dayOff($j) == 0) ? 'day-off go' : '' ?>"><?= getDayRuAll($j); ?></p>
                     </div>
                     <?php $sc = getScheduleToDay(get_the_ID(), $j, 1) ?>
                     <?php //s_prn($sc); ?>
@@ -46,10 +46,10 @@
             <div class="price__box">
                 <div class="price__box_line">
                     <div class="price__day">
-                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>">
+                        <p class="<?= (dayOff($j) == 6 || dayOff($j) == 0) ? 'day-off go' : '' ?>">
                            <?= getDayFor7($i - 1) ?> <?= getMonth(getMonthFor7($i-1)); ?>
                         </p>
-                        <p class="<?= (dayOff($i - 1) == 6 || dayOff($i - 1) == 0) ? 'day-off go' : '' ?>"><?= getDayRuAll($j); ?></p>
+                        <p class="<?= (dayOff($j) == 6 || dayOff($j) == 0) ? 'day-off go' : '' ?>"><?= getDayRuAll($j); ?></p>
                     </div>
                     <?php $sc = getScheduleToDay(get_the_ID(), $j, 2) ?>
                     <?php $old_price = 0 ?>
